@@ -1,6 +1,8 @@
 from flask import Flask,jsonify
 from flask_pymongo import pymongo
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 CONNECTION_STRING = "mongodb+srv://rsw4:Kj1QJ1bO37k2uhfD@profdb.kzu5six.mongodb.net/?retryWrites=true&w=majority&appName=profDB"
 client = pymongo.MongoClient(CONNECTION_STRING)
 db = client.get_database('profDB')
