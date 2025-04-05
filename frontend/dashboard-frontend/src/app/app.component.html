@@ -1,41 +1,10 @@
 
 
-<style>
-  .align-center{
-  justify-content: center;
-  }
-  .profile-card{
-  display:flex;
-  flex-direction:row;
-  margin-left:2%;
-  margin-right:2%;
-
-  }
-  .main{
-  height:100%;
-  width: 100vw;
-  overflow-x: hidden;
-  box-sizing: border-box;
-    }
-  .header{
-    width:100%;
-    height:10%;
-  }
-  .content{
-  width:100%;
-  height:90%;
-  display:flex;
-  flex-direction:column;
-  overflow: auto;
-  justify-content: flex-start;
-
-  }
-</style>
 
 <main class="main">
   <div class="header">
-    <mat-toolbar class="align-center">
-      <h1>Professor Dashboard</h1>
+    <mat-toolbar class="align-center page-header">
+      Professor Dashboard
     </mat-toolbar>
   </div>
   <div class="content">
@@ -47,10 +16,42 @@
         <mat-card-header>
           <mat-card-title>{{ professorData?.name }}</mat-card-title>
         </mat-card-header>
-        <mat-card-content>{{ professorData?.affiliations }}</mat-card-content>
+        <mat-card-content>
+          {{ professorData?.affiliations }} <br>
+          Keywords: {{ professorData?.orcid_data.keywords }}
+        </mat-card-content>
       </div>
     </mat-card>
+    <div class="align-center">
+    <h2 >Citation Trends over the years</h2>
+    <app-bar-chart [citationData]="professorData?.citation_trends" class="citation-chart"></app-bar-chart>
+    </div>
+    <div class="citation-card">
+      <mat-card class="citation-box align-center">
+       <b> Total Citations: {{ professorData?.total_citations }} </b>
+      </mat-card>
+      <mat-card class="citation-box align-center">
+       <b> H-Index: {{ professorData?.h_index }} </b>
+      </mat-card>
+    </div>
+
   </div>
+
+  <div class="align-center">
+    <h2 >Collaboration Trends over the years</h2>
+
+
+    <div class="citation-card">
+    <mat-card class="citation-box align-center">
+      <b> Total Citations: {{ professorData?.total_citations }} </b>
+    </mat-card>
+    <mat-card class="citation-box align-center">
+      <b> H-Index: {{ professorData?.h_index }} </b>
+    </mat-card>
+  </div>
+  </div>
+
+
 </main>
 
 <router-outlet />

@@ -3,10 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { ApiService } from './api.service';
+
+import * as d3 from 'd3';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MatCardModule,MatToolbarModule,HttpClientModule],
+  imports: [RouterOutlet,MatCardModule,MatToolbarModule,HttpClientModule, BarChartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
