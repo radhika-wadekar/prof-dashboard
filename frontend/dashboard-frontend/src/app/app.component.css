@@ -1,6 +1,7 @@
  .align-center{
   justify-content: center;
   text-align:center;
+  margin-top:0.5%;
   }
   .profile-card{
   display:flex;
@@ -41,14 +42,20 @@ color:white;
  .citation-card{
  display:flex;
  flex-direction:row;
-height:5%;
+height:50%;
 gap: 10%;
 margin-left:2%;
   margin-right:2%;
+
  }
  .citation-box{
 width:50%;
 height:100%;
  background-color:#053a54;
 color:white;
+margin-top:0.5%;
+min-height: 80px;
  }
+.search-button{
+margin-left:2%;
+}

@@ -8,6 +8,15 @@
     </mat-toolbar>
   </div>
   <div class="content">
+    <div class="search-container align-center">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchText" placeholder="Enter search term" />
+      </mat-form-field>
+      <button mat-raised-button color="primary search-button" (click)="onSearch()">Search</button>
+    </div>
+
+
     <mat-card class="profile-card">
       <div>
         <img mat-card-image src="profileplaceholder.png" alt="Profile Picture">
@@ -35,20 +44,67 @@
       </mat-card>
     </div>
 
-  </div>
+
 
   <div class="align-center">
-    <h2 >Collaboration Trends over the years</h2>
+    <h2 >Co-Collaborator Summary</h2>
+<p>Click on a node to see details</p>
 
-
+    <app-network-graph [collaborators]="professorData?.co_authors_network.top_collaborators" ></app-network-graph>
+  </div>
     <div class="citation-card">
     <mat-card class="citation-box align-center">
-      <b> Total Citations: {{ professorData?.total_citations }} </b>
+      <b> Total Collaborators: {{ professorData?.co_authors_network.total_collaborators }} </b>
     </mat-card>
     <mat-card class="citation-box align-center">
-      <b> H-Index: {{ professorData?.h_index }} </b>
+      <b> Most recent collaboration: {{ professorData?.co_authors_network.collaboration_timeline.last_year }} </b>
     </mat-card>
+
   </div>
+
+    <div class="align-center">
+      <h2 >Collaboration Trends by Year</h2>
+
+      <app-bar-chart [citationData]="professorData?.co_authors_network.collaboration_frequency_by_year" class="citation-chart"></app-bar-chart>
+    </div>
+    <div class="align-center">
+      <h2 >Publications</h2>
+      <div class="expandable-list">
+        <mat-accordion>
+          @for (publication of professorData?.publications; track publication.title) {
+          <mat-expansion-panel>
+            <!-- Title -->
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ publication.title }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!-- Expanded Content -->
+            <div class="publication-details">
+              <p><strong>Type:</strong> {{ publication.type }}</p>
+              <p><strong>DOI:</strong> <a href="{{ publication.doi }}" target="_blank">{{ publication.doi }}</a></p>
+              <p><strong>Publication Year:</strong> {{ publication.publication_year }}</p>
+              <p><strong>Authors:</strong> {{ publication.authors?.join(', ') }}</p>
+              <p><strong>Journal:</strong> {{ publication.journal }}</p>
+              <p><strong>Cited By Count:</strong> {{ publication.cited_by_count }}</p>
+            </div>
+          </mat-expansion-panel>
+          } @empty {
+          <p>No publications found.</p>
+          }
+        </mat-accordion>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
   </div>
 
 
