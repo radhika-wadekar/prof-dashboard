@@ -59,3 +59,22 @@ min-height: 80px;
 .search-button{
 margin-left:2%;
 }
+.action-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+.white-icon{
+color:white;
+}
+.page-header {
+  background-color: #053a54;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.page-header .action-buttons {
+  margin-left: auto;
+}

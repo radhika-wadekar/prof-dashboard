@@ -5,6 +5,15 @@
   <div class="header">
     <mat-toolbar class="align-center page-header">
       Professor Dashboard
+      <div class="action-buttons">
+
+
+          <button mat-icon-button (click)="openDialog()"><mat-icon class="white-icon">add</mat-icon></button>
+
+        <button mat-icon-button color="warn" (click)="onDelete()">
+          <mat-icon class="white-icon">delete</mat-icon>
+        </button>
+      </div>
     </mat-toolbar>
   </div>
   <div class="content">
@@ -73,14 +82,12 @@
         <mat-accordion>
           @for (publication of professorData?.publications; track publication.title) {
           <mat-expansion-panel>
-            <!-- Title -->
+
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{ publication.title }}
               </mat-panel-title>
             </mat-expansion-panel-header>
-
-            <!-- Expanded Content -->
             <div class="publication-details">
               <p><strong>Type:</strong> {{ publication.type }}</p>
               <p><strong>DOI:</strong> <a href="{{ publication.doi }}" target="_blank">{{ publication.doi }}</a></p>

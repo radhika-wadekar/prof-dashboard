@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
 from flask_pymongo import pymongo
 from flask_cors import CORS
 app = Flask(__name__)
@@ -12,8 +12,8 @@ def insert_one():
         data = request.json
         db.professor_data.insert_one(data)
         return jsonify({}),200
-    except:
-        return jsonify({}),500
+    except Exception as e:
+        return jsonify(str(e)),500
 
 
 @app.route('/professor', methods=['GET'])
@@ -41,7 +41,6 @@ def get_one(author_id):
 @app.route('/professor/<author_id>', methods=['PUT'])
 def update_one(author_id):
     try:
-        data = request.json
         query = {'author_id':author_id}
         result = db.professor_data.update_one(query, {"$set": data})
         if result.matched_count == 0:
@@ -53,7 +52,7 @@ def update_one(author_id):
 @app.route('/professor/<author_id>', methods=['DELETE'])
 def delete_one(author_id):
     try:
-        data = request.json
+        author_id = "https://openalex.org/"+author_id
         query = {'author_id':author_id}
         result = db.professor_data.delete_one(query)
         if result.deleted_count == 0:

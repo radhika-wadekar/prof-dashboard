@@ -12,10 +12,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
+import {CreateDialogComponent} from './create-dialog/create-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import * as d3 from 'd3';
+import {
+  MatDialog,
+} from '@angular/material/dialog';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MatCardModule,MatToolbarModule,FormsModule,HttpClientModule, BarChartComponent, NgxGraphModule,NetworkGraphComponent,MatExpansionModule,MatFormFieldModule,MatInputModule,MatButtonModule],
+  imports: [RouterOutlet,MatCardModule,MatToolbarModule,ReactiveFormsModule,MatDialogModule,CreateDialogComponent,MatIconModule,FormsModule,HttpClientModule, BarChartComponent, NgxGraphModule,NetworkGraphComponent,MatExpansionModule,MatFormFieldModule,MatInputModule,MatButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -25,16 +32,16 @@ export class AppComponent implements OnInit {
   public professorData: any;
   searchText: string = '';
 
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService,private dialog:MatDialog) {}
 
 
     onSearch(): void {
       if (this.searchText.trim()) {
-        this.apiService.getData(this.searchText).subscribe( // Pass searchText here
+        this.apiService.getData(this.searchText).subscribe(
           (response) => {
             this.professorData = response;
             console.log('Search results:', response);
-            // Handle response here (e.g., update UI with data)
+
           },
           (error) => {
             console.error('Error fetching data:', error);
@@ -56,4 +63,33 @@ export class AppComponent implements OnInit {
       }
     );
   }
+onEdit(): void {
+    console.log('Edit button clicked');
+
+      }
+    onCreate():void{
+
+
+      }
+openDialog():void{
+  console.log("In dialog");
+  this.dialog.open(CreateDialogComponent,{})
+  }
+
+
+  onDelete(): void {
+      if (confirm('Are you sure you want to delete this professor?')) {
+        this.apiService.deleteProfessor(this.searchText).subscribe(
+          (response) => {
+            console.log('Professor deleted successfully:', response);
+            alert('Professor deleted successfully.');
+            this.professorData = null;
+          },
+          (error) => {
+            console.error('Error deleting professor:', error);
+            alert('Failed to delete professor. Please try again.');
+          }
+        );
+      }
+    }
 }

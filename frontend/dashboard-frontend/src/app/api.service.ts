@@ -10,15 +10,21 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // Get data with dynamic search term
+
   getData(searchTerm: string): Observable<any> {
-    const apiUrl = `${this.baseUrl}/${searchTerm}`; // Append search term to base URL
+    const apiUrl = `${this.baseUrl}/${searchTerm}`;
     return this.http.get<any>(apiUrl);
   }
+  addProfessor(data: any,authorId:string): Observable<any> {
+      return this.http.post(`${this.baseUrl}`, data);
+    }
 
-  // Post data (unchanged)
-  postData(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl, data);
+
+deleteProfessor(authorId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${authorId}`);
   }
+editProfessor(authorId: string, data: any): Observable<any> {
+  return this.http.put(`${this.baseUrl}/${authorId}`, data);
+}
 }
 
