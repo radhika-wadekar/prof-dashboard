@@ -13,7 +13,7 @@ This project is a full-stack application designed to analyze academic profiles, 
 ### **Technologies Used**
 - **Angular 17+**: Framework for building dynamic web applications.
 - **Angular Material**: UI components for responsive design.
-- **ng2-charts & Chart.js**: For creating interactive charts.
+- **d3.js and @swimlane/ngx-graph**: For creating interactive charts.
 - **TypeScript**: Strongly typed programming language for Angular.
 
 ### **Setup Instructions**
@@ -46,9 +46,8 @@ This project is a full-stack application designed to analyze academic profiles, 
    cd backend
    python -m venv venv
    source venv/bin/activate
-   pip install -r requirements.txt
 3. Start the Flask server:
-   flask run --port=5000
+   python3 app.py
 
 ### **API Endpoints**
 | Endpoint                | Method | Description                     |
